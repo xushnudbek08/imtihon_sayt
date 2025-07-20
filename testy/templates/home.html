@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosh Sahifa</title>
+   <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="logo">
+                <span class="logo-icon">🌟</span>
+                <span class="logo-text">Bizning Sayt</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <ul class="nav-links">
+                <li><a href="home.html" class="nav-link active">Bosh Sahifa</a></li>
+                <li><a href="test.html" class="nav-link">Test Sahifa</a></li>
+                <li><a href="#" class="nav-link">Xizmatlar</a></li>
+                <li><a href="#" class="nav-link">Yangiliklar</a></li>
+                <li><a href="#" class="nav-link">Aloqa</a></li>
+            </ul>
+        </div>
+        
+        <div class="navbar-right">
+            <div class="user-dropdown">
+                <button class="user-btn" onclick="toggleDropdown()">
+                    <span class="user-avatar">👤</span>
+                    <span class="user-name" id="navUserName">Foydalanuvchi</span>
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="#" class="dropdown-item" onclick="openProfile()">
+                        <span class="dropdown-icon">👤</span>
+                        Profil
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="logout()">
+                        <span class="dropdown-icon">🚪</span>
+                        Chiqish
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+        <main class="dashboard">
+            <section class="welcome-section">
+                <h2>Bosh Sahifa</h2>
+                <p>Muvaffaqiyatli tizimga kirdingiz! Bu yerda siz turli xizmatlardan foydalanishingiz mumkin.</p>
+            </section>
+
+            <section class="dashboard-cards">
+                <div class="card">
+                    <h3>📊 Statistika</h3>
+                    <p>Hisobingiz statistikasini ko'ring</p>
+                    <button class="btn btn-secondary">Ko'rish</button>
+                </div>
+
+                <div class="card">
+                    <h3>⚙️ Sozlamalar</h3>
+                    <p>Hisob sozlamalarini boshqaring</p>
+                    <button class="btn btn-secondary">Sozlash</button>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Profil</h3>
+                    <p>Shaxsiy ma'lumotlaringizni tahrirlang</p>
+                    <button class="btn btn-secondary">Tahrirlash</button>
+                </div>
+
+                <div class="card">
+                    <h3>💬 Yordam</h3>
+                    <p>Yordam va qo'llab-quvvatlash</p>
+                    <button class="btn btn-secondary">Bog'lanish</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Bizning Sayt. Barcha huquqlar himoyalangan.</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

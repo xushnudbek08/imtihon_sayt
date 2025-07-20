@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Email tasdiqlash</title>
+</head>
+<body>
+    <h2>Emailga yuborilgan kodni kiriting</h2>
+    
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="code" placeholder="6 xonali kod" required><br><br>
+        <button type="submit">Tasdiqlash</button>
+    </form>
+</body>
+</html>

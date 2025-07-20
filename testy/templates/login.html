@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirish</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Tizimga Kirish</h1>
+            <p class="tagline">Hisobingizga kiring</p>
+        </header>
+
+        <main class="form-container">
+            <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Foydalanuvchi nomi yoki Email:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Parol:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember"> Meni eslab qol
+                    </label>
+                    <a href="#" class="forgot-password">Parolni unutdingizmi?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Kirish</button>
+            </form>
+
+            <div class="form-footer">
+                <p>Hisobingiz yo'qmi? <a href="register.html">Ro'yxatdan o'ting</a></p>
+                <p><a href="index.html">Asosiy sahifaga qaytish</a></p>
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

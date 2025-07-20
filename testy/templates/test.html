@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Sahifa</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="logo">
+                        <span class="logo-icon">🌟</span>
+                        <span class="logo-text">Bizning Sayt</span>
+                    </div>
+                </div>
+                
+                <div class="navbar-center">
+                    <ul class="nav-links">
+                        <li><a href="home.html" class="nav-link">Bosh Sahifa</a></li>
+                        <li><a href="test.html" class="nav-link active">Test Sahifa</a></li>
+                        <li><a href="#" class="nav-link">Xizmatlar</a></li>
+                        <li><a href="#" class="nav-link">Yangiliklar</a></li>
+                        <li><a href="#" class="nav-link">Aloqa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="navbar-right">
+                    <div class="user-dropdown">
+                        <button class="user-btn" onclick="toggleDropdown()">
+                            <span class="user-avatar">👤</span>
+                            <span class="user-name" id="navUserName">Foydalanuvchi</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </button>
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="#" class="dropdown-item" onclick="openProfile()">
+                                <span class="dropdown-icon">👤</span>
+                                Profil
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="logout()">
+                                <span class="dropdown-icon">🚪</span>
+                                Chiqish
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="test-content">
+            <section class="test-section">
+                <h2>Test Sahifa</h2>
+                <p>Bu test sahifasi. Bu yerda turli testlar va funksiyalarni sinab ko'rishingiz mumkin.</p>
+            </section>
+
+            <section class="test-cards">
+                <div class="card">
+                    <h3>🧪 Test 1</h3>
+                    <p>Birinchi test funksiyasi</p>
+                    <button class="btn btn-primary">Testni Boshlash</button>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Test 2</h3>
+                    <p>Ikkinchi test funksiyasi</p>
+                    <button class="btn btn-primary">Testni Boshlash</button>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Test 3</h3>
+                    <p>Uchinchi test funksiyasi</p>
+                    <button class="btn btn-primary">Testni Boshlash</button>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Test 4</h3>
+                    <p>To'rtinchi test funksiyasi</p>
+                    <button class="btn btn-primary">Testni Boshlash</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Bizning Sayt. Barcha huquqlar himoyalangan.</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

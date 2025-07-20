@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizning Sayt - Asosiy Sahifa</title>
+       <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Bizning Sayt</h1>
+            <p class="tagline">Zamonaviy va ishonchli platforma</p>
+        </header>
+
+        <main class="main-content">
+            <section class="hero">
+                <h2>Saytimizga Xush Kelibsiz!</h2>
+                <p class="description">
+                    Bu yerda siz turli xil xizmatlardan foydalanishingiz mumkin. 
+                    Bizning platformamiz sizga qulay va xavfsiz muhit taqdim etadi.
+                    Ro'yxatdan o'ting yoki tizimga kiring va barcha imkoniyatlardan foydalaning.
+                </p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <h3>🔒 Xavfsizlik</h3>
+                        <p>Ma'lumotlaringiz to'liq himoyalangan</p>
+                    </div>
+                    <div class="feature">
+                        <h3>⚡ Tezlik</h3>
+                        <p>Tez va samarali xizmat</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🎯 Qulay</h3>
+                        <p>Foydalanish oson va tushunarli</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="auth-buttons">
+                <button class="btn btn-primary" herf=" {% url 'register' %}" >
+                    Ro'yxatdan O'tish
+                </button>
+                <button class="btn btn-secondary" herf="{% url 'login' %}">
+                    Kirish
+                </button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Bizning Sayt. Barcha huquqlar himoyalangan.</p>
+        </footer>
+    </div>
+
+     <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
