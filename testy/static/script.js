@@ -12,7 +12,7 @@ function goToHome() {
 }
 
 function goToVerification() {
-  window.location.href = "verify-email.html"
+  window.location.href = "verify_email_code/"
 }
 
 // Registration form handler

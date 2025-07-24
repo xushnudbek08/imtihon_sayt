@@ -16,3 +16,18 @@ class RegisterStepOneForm(forms.Form):
 
 class EmailCodeForm(forms.Form):
     code = forms.CharField(max_length=6)
+
+
+
+class UploadTestForm(forms.Form):
+    category = forms.CharField(max_length=100)
+    file = forms.FileField()
+
+
+
+class TimeSelectForm(forms.Form):
+    duration = forms.ChoiceField(choices=[
+        (30, '30 daqiqa'),
+        (60, '1 soat'),
+        (80, '1.2 soat'),
+    ])

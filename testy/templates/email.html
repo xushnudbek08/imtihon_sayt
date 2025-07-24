@@ -2,19 +2,380 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email tasdiqlash</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .email-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #c33;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .input-group::before {
+            content: '🔢';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            z-index: 1;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1.2rem;
+            padding-left: 3.5rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 0.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #fff;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        input::placeholder {
+            color: #999;
+            font-weight: 400;
+            letter-spacing: normal;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            min-width: 200px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .resend-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .resend-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .resend-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .resend-btn:hover {
+            color: #764ba2;
+        }
+
+        .timer {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Code input animation */
+        .code-valid {
+            border-color: #28a745 !important;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1) !important;
+        }
+
+        .code-invalid {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 10px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .email-icon {
+                font-size: 3rem;
+            }
+
+            input[type="text"] {
+                padding: 1rem;
+                padding-left: 3rem;
+                font-size: 1.1rem;
+            }
+
+            button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                min-width: 180px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading button {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Success animation */
+        @keyframes success {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .success {
+            animation: success 0.3s ease;
+        }
+    </style>
 </head>
 <body>
-    <h2>Emailga yuborilgan kodni kiriting</h2>
-    
-    {% if error %}
-        <p style="color:red;">{{ error }}</p>
-    {% endif %}
 
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="code" placeholder="6 xonali kod" required><br><br>
-        <button type="submit">Tasdiqlash</button>
-    </form>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="error-message {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+    <div class="container">
+        <div class="email-icon">📧</div>
+        
+        <h2>Emailga yuborilgan kodni kiriting</h2>
+        
+        <p class="description">
+            Emailingizga 6 xonali tasdiqlash kodi yuborildi. 
+            Iltimos, kodni quyidagi maydonga kiriting.
+        </p>
+        
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+        
+        <form method="POST" id="verifyForm">
+            {% csrf_token %}
+            
+            <div class="input-group">
+                <input type="text" 
+                       name="code" 
+                       placeholder="123456" 
+                       maxlength="6" 
+                       pattern="[0-9]{6}"
+                       id="codeInput"
+                       required>
+            </div>
+            
+            <button type="submit" id="submitBtn">Tasdiqlash</button>
+        </form>
+
+        <div class="resend-section">
+            <p class="resend-text">Kod kelmadimi?</p>
+            <button type="button" class="resend-btn" id="resendBtn" onclick="resendCode()">
+                Qayta yuborish
+            </button>
+            <div class="timer" id="timer"></div>
+        </div>
+    </div>
+
+    <script>
+        let resendTimer = 60;
+        let timerInterval;
+
+        // Form submission animation
+        document.getElementById('verifyForm').addEventListener('submit', function() {
+            this.classList.add('loading');
+        });
+
+        // Code input validation
+        const codeInput = document.getElementById('codeInput');
+        codeInput.addEventListener('input', function() {
+            const value = this.value.replace(/[^0-9]/g, '');
+            this.value = value;
+            
+            if (value.length === 6) {
+                this.classList.add('code-valid');
+                this.classList.remove('code-invalid');
+            } else {
+                this.classList.remove('code-valid', 'code-invalid');
+            }
+        });
+
+        // Auto-focus on code input
+        codeInput.focus();
+
+        // Resend code functionality
+        function resendCode() {
+            const resendBtn = document.getElementById('resendBtn');
+            const timer = document.getElementById('timer');
+            
+            resendBtn.disabled = true;
+            resendBtn.style.opacity = '0.5';
+            resendBtn.textContent = 'Yuborilmoqda...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                resendBtn.textContent = 'Yuborildi!';
+                startResendTimer();
+            }, 2000);
+        }
+
+        function startResendTimer() {
+            const resendBtn = document.getElementById('resendBtn');
+            const timer = document.getElementById('timer');
+            
+            resendTimer = 60;
+            
+            timerInterval = setInterval(() => {
+                timer.textContent = `Qayta yuborish ${resendTimer} soniyadan keyin mumkin`;
+                resendTimer--;
+                
+                if (resendTimer < 0) {
+                    clearInterval(timerInterval);
+                    resendBtn.disabled = false;
+                    resendBtn.style.opacity = '1';
+                    resendBtn.textContent = 'Qayta yuborish';
+                    timer.textContent = '';
+                }
+            }, 1000);
+        }
+
+        // Start timer on page load
+        startResendTimer();
+
+        // Input focus animations
+        codeInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        codeInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+
+        // Auto-submit when 6 digits entered
+        codeInput.addEventListener('input', function() {
+            if (this.value.length === 6) {
+                setTimeout(() => {
+                    document.getElementById('verifyForm').submit();
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html>
+

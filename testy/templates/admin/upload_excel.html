@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel orqali Test Yuklash - StepTest.uz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #494b53 0%, #735d88 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e1e5e9;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .upload-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .upload-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .upload-header h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .upload-content {
+            padding: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        /* Template Download Section */
+        .template-section {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 5px solid #28a745;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+        }
+
+        .template-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .template-icon {
+            font-size: 4rem;
+            color: #28a745;
+        }
+
+        .template-text {
+            flex: 1;
+        }
+
+        .template-text h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-text p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Upload Form Section */
+        .upload-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px dashed #ddd;
+            border-radius: 12px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .file-input:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .file-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .file-input-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-input-icon {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            align-self: flex-start;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Messages Section */
+        .messages-section {
+            margin-bottom: 2rem;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left-color: #17a2b8;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left-color: #28a745;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left-color: #dc3545;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 5px solid #6c757d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6c757d 0%, #495057 100%);
+        }
+
+        .categories-list {
+            list-style: none;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .category-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-item:nth-child(even) {
+            border-left-color: #764ba2;
+        }
+
+        .category-item:nth-child(3n) {
+            border-left-color: #28a745;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .question-count {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .no-categories {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-categories-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #f39c12;
+        }
+
+        .instructions h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .instructions ul {
+            color: #856404;
+            padding-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .upload-header h2 {
+                font-size: 2rem;
+            }
+
+            .upload-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .template-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .template-icon {
+                font-size: 3rem;
+            }
+
+            .category-item {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .upload-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .upload-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading .btn-primary {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* File selected state */
+        .file-selected .file-input {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.05);
+        }
+
+        .file-selected .file-input-label {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">StepTest.uz</span>
+            </div>
+            <div class="nav-right">
+             
+                <a href="/admin/" class="btn btn-secondary">
+                    <span>⚙️</span>
+                    <span>Admin Panel</span>
+                </a>
+                <a href="{% url 'category_list' %}" class="btn btn-secondary">
+                    <span>📝</span>
+                    <span>Testlar</span>
+                </a>
+                   <a href="{% url 'logout' %}" class="btn btn-secondary">
+                    <span></span>
+                    <span>Chiqish</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h1 class="page-title">📤 Excel orqali Test Yuklash</h1>
+            <p class="page-subtitle">
+                Excel fayl orqali bir vaqtda ko'plab test savollarini tizimga yuklang
+            </p>
+        </div>
+
+        <div class="upload-container">
+            <div class="upload-header">
+                <h2>📤 Excel orqali test yuklash</h2>
+                <p>Testlarni tez va oson yuklash uchun Excel fayldan foydalaning</p>
+            </div>
+
+            <div class="upload-content">
+                <!-- Instructions -->
+                <div class="instructions">
+                    <h4>
+                        <span>💡</span>
+                        Yo'riqnoma
+                    </h4>
+                    <ul>
+                        <li>Avval Excel shablonni yuklab oling</li>
+                        <li>Shablonni to'ldiring (kategoriya, savol, javoblar)</li>
+                        <li>Faylni .xlsx formatida saqlang</li>
+                        <li>Pastdagi forma orqali yuklang</li>
+                    </ul>
+                </div>
+
+                <!-- Messages -->
+                {% if messages %}
+                    <div class="messages-section">
+                        {% for message in messages %}
+                            <div class="alert alert-info">
+                                <span class="alert-icon">ℹ️</span>
+                                <span>{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- Template Download Section -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">📥</span>
+                        Excel Shablon
+                    </h3>
+                    
+                    <div class="template-section">
+                        <div class="template-info">
+                            <div class="template-icon">📊</div>
+                            <div class="template-text">
+                                <h3>Excel Shablonni Yuklab Olish</h3>
+                                <p>
+                                    Testlarni to'g'ri formatda yuklash uchun bizning Excel shablonimizdan foydalaning. 
+                                    Shablon barcha kerakli ustunlar va formatlar bilan tayyorlangan.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        {% load static %}
+                        <a href="{% static 'shablonlar/shablon.xlsx' %}" download class="btn btn-success">
+                            <span>📥</span>
+                            <span>Excel shablonni yuklab olish</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Upload Form Section -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">📤</span>
+                        Fayl Yuklash
+                    </h3>
+                    
+                    <div class="upload-section">
+                        <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+                            {% csrf_token %}
+                            
+                            <div class="form-group">
+                                <label class="form-label">Excel faylni tanlang (.xlsx):</label>
+                                <div class="file-input-wrapper">
+                                    <input type="file" name="excel_file" accept=".xlsx" required class="file-input" id="fileInput">
+                                    <div class="file-input-label" id="fileLabel">
+                                        <span class="file-input-icon">📁</span>
+                                        <span>Excel faylni tanlash uchun bosing</span>
+                                        <small>Faqat .xlsx formatdagi fayllar qabul qilinadi</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <span>📤</span>
+                                <span>Yuklash</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Statistics Section -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">📚</span>
+                        Mavjud Test Kategoriyalari
+                    </h3>
+                    
+                    <div class="stats-section">
+                        <ul class="categories-list">
+                            {% for cat in categories %}
+                                <li class="category-item">
+                                    <span class="category-name">{{ cat.name }}</span>
+                                    <span class="question-count">{{ cat.question_count }} ta savol</span>
+                                </li>
+                            {% empty %}
+                                <div class="no-categories">
+                                    <div class="no-categories-icon">📚</div>
+                                    <p>Hozircha hech qanday test mavjud emas.</p>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // File input handling
+        const fileInput = document.getElementById('fileInput');
+        const fileLabel = document.getElementById('fileLabel');
+        const uploadForm = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                fileLabel.innerHTML = `
+                    <span class="file-input-icon">✅</span>
+                    <span>Tanlangan fayl: ${file.name}</span>
+                    <small>Fayl hajmi: ${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                `;
+                this.parentElement.parentElement.classList.add('file-selected');
+            } else {
+                fileLabel.innerHTML = `
+                    <span class="file-input-icon">📁</span>
+                    <span>Excel faylni tanlash uchun bosing</span>
+                    <small>Faqat .xlsx formatdagi fayllar qabul qilinadi</small>
+                `;
+                this.parentElement.parentElement.classList.remove('file-selected');
+            }
+        });
+
+        // Form submission handling
+        uploadForm.addEventListener('submit', function(e) {
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                e.preventDefault();
+                alert('Iltimos, Excel faylni tanlang!');
+                return;
+            }
+            
+            if (!file.name.endsWith('.xlsx')) {
+                e.preventDefault();
+                alert('Faqat .xlsx formatdagi fayllar qabul qilinadi!');
+                return;
+            }
+            
+            // Add loading state
+            this.classList.add('loading');
+            submitBtn.innerHTML = `
+                <span>⏳</span>
+                <span>Yuklanmoqda...</span>
+            `;
+            submitBtn.disabled = true;
+        });
+
+        // Drag and drop functionality
+        const fileInputWrapper = document.querySelector('.file-input-wrapper');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            fileInputWrapper.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            fileInputWrapper.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            fileInputWrapper.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            fileInputWrapper.classList.add('file-selected');
+        }
+
+        function unhighlight(e) {
+            fileInputWrapper.classList.remove('file-selected');
+        }
+
+        fileInputWrapper.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        }
+
+        // Animate category items on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryItems = document.querySelectorAll('.category-item');
+            
+            categoryItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

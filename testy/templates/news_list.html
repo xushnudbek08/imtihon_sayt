@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepTest.uz - Yangiliklar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #444650 0%, #8262a3 100%);
+            min-height: 100vh;
+            padding: 20px;
+       }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e1e5e9;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .news-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .news-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .news-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .news-content {
+            padding: 2rem;
+        }
+
+        .news-list {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .news-item {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-item:nth-child(even) {
+            border-left-color: #764ba2;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .news-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            color: #333;
+        }
+
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .news-title a:hover {
+            color: #667eea;
+        }
+
+        .news-summary {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .news-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .read-more {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .news-stats {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .no-news {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+
+        .no-news-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .no-news h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .no-news p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #667eea;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .featured-news {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left-color: #0ea5e9 !important;
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #0ea5e9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .news-header h1 {
+                font-size: 2rem;
+            }
+
+            .news-content {
+                padding: 1.5rem;
+            }
+
+            .news-item {
+                padding: 1.5rem;
+            }
+
+            .news-title {
+                font-size: 1.5rem;
+            }
+
+            .news-actions {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .read-more {
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .news-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .news-content {
+                padding: 1rem;
+            }
+
+            .news-item {
+                padding: 1rem;
+            }
+
+            .news-title {
+                font-size: 1.3rem;
+            }
+
+            .news-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">StepTest.uz</span>
+            </div>
+            <div class="nav-right">
+                <a href="/" class="btn btn-secondary">Bosh Sahifa</a>
+                <a href="/tests/" class="btn btn-secondary">Testlar</a>
+                <a href="/profile/" class="btn btn-secondary">Profil</a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h1 class="page-title">📰 Yangiliklar</h1>
+            <p class="page-subtitle">
+                Ta'lim sohasidagi eng so'nggi yangiliklar va muhim e'lonlar bilan tanishing
+            </p>
+        </div>
+
+        <div class="news-container">
+            <div class="news-header">
+                <h1>So'nggi Yangiliklar</h1>
+                <p>StepTest.uz jamoasidan eng muhim yangiliklar</p>
+            </div>
+
+            <div class="news-content">
+                <div class="news-list">
+                    {% for item in news %}
+                    <article class="news-item {% if forloop.first %}featured-news{% endif %}">
+                        {% if forloop.first %}
+                            <div class="featured-badge">⭐ Asosiy</div>
+                        {% endif %}
+                        
+                        <div class="news-meta">
+                            <div class="news-date">
+                                <span>📅</span>
+                                <span>{{ item.published }}</span>
+                            </div>
+                            <div class="news-badge">Yangilik</div>
+                        </div>
+
+                        <h2 class="news-title">
+                            <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+                        </h2>
+
+                        <div class="news-summary">
+                            {{ item.summary|safe }}
+                        </div>
+
+                        <div class="news-actions">
+                            <a href="{{ item.link }}" target="_blank" class="read-more">
+                                <span>Batafsil o'qish</span>
+                                <span>→</span>
+                            </a>
+                            <div class="news-stats">
+                                <div class="stat-item">
+                                    <span>👁️</span>
+                                    <span>{{ forloop.counter }}2 ko'rishlar</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span>⏱️</span>
+                                    <span>3 daqiqa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% empty %}
+                    <div class="no-news">
+                        <div class="no-news-icon">📰</div>
+                        <h3>Yangiliklar topilmadi</h3>
+                        <p>Hozircha yangiliklar mavjud emas. Tez orada yangi ma'lumotlar qo'shiladi.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const newsItems = document.querySelectorAll('.news-item');
+            
+            newsItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Reading time calculation
+        document.querySelectorAll('.news-summary').forEach(summary => {
+            const wordCount = summary.textContent.split(' ').length;
+            const readingTime = Math.ceil(wordCount / 200);
+            
+            const statsContainer = summary.parentElement.querySelector('.news-stats');
+            if (statsContainer) {
+                const timeElement = statsContainer.querySelector('.stat-item:last-child span:last-child');
+                if (timeElement) {
+                    timeElement.textContent = `${readingTime} daqiqa`;
+                }
+            }
+        });
+
+        // Click tracking
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('Yangilik o\'qildi:', this.closest('.news-item').querySelector('.news-title').textContent);
+            });
+        });
+    </script>
+</body>
+</html>
